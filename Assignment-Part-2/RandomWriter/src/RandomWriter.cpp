@@ -18,7 +18,7 @@
 #include "simpio.h"
 using namespace std;
 
-/* Constant defines the number of sumbols o siplay */
+/* Constant defines the number of sumbols to display */
 const int COUNT_CHARS = 2000;
 
 /*All seeds with list of next characters */
