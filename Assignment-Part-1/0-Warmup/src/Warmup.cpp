@@ -1,8 +1,8 @@
 /*
  * File: Warmup.cpp
  * ----------------
- * Name: [TODO: enter name here]
- * Section: [TODO: enter section leader here]
+ * Name: aotian
+ * Section: CS-B
  * This program generates a hash code based on user's name.
  * As given, this code has two compiler errors you need to track down 
  * and fix in order to get the program up and running.
