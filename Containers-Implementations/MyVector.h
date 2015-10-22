@@ -8,8 +8,6 @@
 #ifndef MYVECTOR_H
 #define	MYVECTOR_H
 
-#include <typeinfo>
-
 using namespace std;
 
 typedef size_t size_type;
