@@ -2,11 +2,16 @@
 #include "console.h"
 #include "gwindow.h"
 #include "gobjects.h"
+#include <cmath>
 
 using namespace std;
 
+//the width and heught parameters of the window
+const double WINDOW_WIDTH = 800;
+const double WINDOW_HEIGHT = 800;
+
 //the count of the iteration
-const int MAX_ITERATIONS = 40000;
+const int MAX_ITERATIONS = 100;
 
 // min and max values of the real numbers
 const double MIN_REAL = -2.0;
@@ -29,17 +34,18 @@ void drawMondelbrotFractal(GWindow &gw, double real, double imag){
         cr = zr;
         ci = zi;
         //arg = zr * zr + zi * zi;
-        //convert to x and y coordinate of the canvas
-        x = gw.getWidth ()*(zr - MIN_REAL) / (MAX_REAL - MIN_REAL);
-        y = gw.getHeight ()*(1 - (zi - MIN_IMAGINARY) / (MAX_IMAGINARY - MIN_IMAGINARY));
         i++;
     }
-    if(i == MAX_ITERATIONS){
+    if(i >= MAX_ITERATIONS){
+        //convert to x and y coordinate of the canvas
+        x = WINDOW_WIDTH*(real - MIN_REAL) / (MAX_REAL - MIN_REAL);
+        y = WINDOW_HEIGHT*(1 - (imag - MIN_IMAGINARY) / (MAX_IMAGINARY - MIN_IMAGINARY));
         gw.drawOval (x, y, 1, 1);
     }
 }
 
-double getStep(GWindow &gw){
+double getStep(){
+    /* Alternative method to find step
     double step = 0.0;
     double width = gw.getWidth ();
 
@@ -52,13 +58,16 @@ double getStep(GWindow &gw){
         step = (-MIN_REAL + MAX_REAL)/width;
     }
     return step;
+    */
+
+    return (abs(MIN_REAL) + abs(MAX_REAL))/WINDOW_WIDTH;
 }
 
 int main(){
-    GWindow gw(1000, 1000);
+    GWindow gw(WINDOW_WIDTH, WINDOW_HEIGHT);
     gw.setRepaintImmediately (false);
 
-    double step = getStep(gw);
+    double step = getStep(); //calculate the value of step by the axises
 
     for (double imaginary = MAX_IMAGINARY; imaginary >= MIN_IMAGINARY; imaginary -= step)
     {
