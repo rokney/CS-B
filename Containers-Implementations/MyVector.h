@@ -43,7 +43,7 @@ public:
     size_type max_size();
     T& at(size_type);
     void erase(iterator);
-    void insert(iterator, const T &);
+    //void insert(iterator, const T &);
 };
 
 template <typename T>
