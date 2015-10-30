@@ -1,8 +1,7 @@
 /* 
  * File:   MyVector.h
- * Author: rokne
+ * Author: aotian
  *
- * Created on 21 октября 2015 г., 11:50
  */
 
 #ifndef MYVECTOR_H
@@ -23,7 +22,7 @@ private:
 public:
     typedef T* iterator;
 
-    MyVector(int = 0);
+    MyVector(size_type = 0);
     MyVector(const MyVector<T> &);
     MyVector(size_type, const T & = 0);
     ~MyVector();
@@ -44,20 +43,12 @@ public:
     size_type max_size();
     T& at(size_type);
     void erase(iterator);
-<<<<<<< HEAD
-<<<<<<< HEAD
-    void erase(int);
-    void insert(int, const T &);
-=======
-    //void insert(iterator, const T &);
->>>>>>> origin/master
-=======
-    //void insert(iterator, const T &);
->>>>>>> origin/master
+    void erase(size_type);
+    void insert(size_type, const T &);
 };
 
 template <typename T>
-MyVector<T>::MyVector(int s) {
+MyVector<T>::MyVector(size_type s) {
     sizeV = s;
     if (s != 0) {
         capacityV = s;
@@ -239,12 +230,12 @@ void MyVector<T>::erase(iterator it) {
 }
 
 template <typename T>
-void MyVector<T>::erase(int index) {
+void MyVector<T>::erase(size_type index) {
     try {
         if (index < 0 || index >= sizeV) {
             throw 1;
         }
-        for (int i = index; i < sizeV - 1; i++) {
+        for (size_type i = index; i < sizeV - 1; i++) {
             array[i] = array[i + 1];
         }
         sizeV--;
@@ -255,7 +246,7 @@ void MyVector<T>::erase(int index) {
 }
 
 template <typename T>
-void MyVector<T>::insert(int index, const T &element) {
+void MyVector<T>::insert(size_type index, const T &element) {
     if (index == capacityV) {
         resize(sizeV++);
     }
@@ -263,7 +254,7 @@ void MyVector<T>::insert(int index, const T &element) {
         if (index < 0 || index >= sizeV) {
             throw 1;
         }
-        for (int i = sizeV; i > index; i--) {
+        for (size_type i = sizeV; i > index; i--) {
             array[i] = array[i - 1];
         }
         array[index] = element;
