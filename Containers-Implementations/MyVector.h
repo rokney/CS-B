@@ -45,8 +45,12 @@ public:
     T& at(size_type);
     void erase(iterator);
 <<<<<<< HEAD
+<<<<<<< HEAD
     void erase(int);
     void insert(int, const T &);
+=======
+    //void insert(iterator, const T &);
+>>>>>>> origin/master
 =======
     //void insert(iterator, const T &);
 >>>>>>> origin/master
