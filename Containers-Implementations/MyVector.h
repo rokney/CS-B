@@ -8,6 +8,7 @@
 #ifndef MYVECTOR_H
 #define	MYVECTOR_H
 
+
 using namespace std;
 
 typedef size_t size_type;
@@ -43,7 +44,8 @@ public:
     size_type max_size();
     T& at(size_type);
     void erase(iterator);
-    void insert(iterator, const T &);
+    void erase(int);
+    void insert(int, const T &);
 };
 
 template <typename T>
@@ -225,6 +227,42 @@ void MyVector<T>::erase(iterator it) {
             *i = *(i + 1);
         }
         pop_back();
+    }
+}
+
+template <typename T>
+void MyVector<T>::erase(int index) {
+    try {
+        if (index < 0 || index >= sizeV) {
+            throw 1;
+        }
+        for (int i = index; i < sizeV - 1; i++) {
+            array[i] = array[i + 1];
+        }
+        sizeV--;
+    } catch (int e) {
+        cout << "Error erase (" << index << "). Out of range." << endl;
+        std::exit(0);
+    }
+}
+
+template <typename T>
+void MyVector<T>::insert(int index, const T &element) {
+    if (index == capacityV) {
+        resize(sizeV++);
+    }
+    try {
+        if (index < 0 || index >= sizeV) {
+            throw 1;
+        }
+        for (int i = sizeV; i > index; i--) {
+            array[i] = array[i - 1];
+        }
+        array[index] = element;
+        sizeV++;
+    } catch (int e) {
+        cout << "Error insert (" << index << "). Out of range." << endl;
+        std::exit(0);
     }
 }
 #endif	/* MYVECTOR_H */
