@@ -33,6 +33,7 @@ public:
     void clear();
     int size();
     bool isEmpty();
+    void operator=(const MyQueue<T> &);
 };
 
 template <typename T>
@@ -121,7 +122,6 @@ void MyQueue<T>::clear() {
         end = 0;
         sizeQueue = 0;
         elements.clear();
-        cout << "Queue cleared" << endl;
     }
 }
 
@@ -132,8 +132,7 @@ int MyQueue<T>::size() {
 
 template <typename T>
 bool MyQueue<T>::isEmpty() {
-    return sizeQueue == 0 ? true : false;
+    return sizeQueue == 0;
 }
-
 #endif	/* MYQUEUE_H */
 

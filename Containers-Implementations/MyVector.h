@@ -119,12 +119,14 @@ T& MyVector<T>::operator[](size_type index) {
 
 template <typename T>
 void MyVector<T>::operator=(const MyVector<T>& otherVector) {
-    delete []array;
-    sizeV = otherVector.sizeV;
-    capacityV = otherVector.capacityV;
-    array = new T[capacityV];
-    for (size_type i = 0; i < sizeV; i++) {
-        array[i] = otherVector.array[i];
+    if (array != otherVector.array) {
+        delete []array;
+        sizeV = otherVector.sizeV;
+        capacityV = otherVector.capacityV;
+        array = new T[capacityV];
+        for (size_type i = 0; i < sizeV; i++) {
+            array[i] = otherVector.array[i];
+        }
     }
 }
 
