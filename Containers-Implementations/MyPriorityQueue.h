@@ -6,8 +6,6 @@
 #ifndef MYPRIORITYQUEUE_H
 #define	MYPRIORITYQUEUE_H
 
-#include <vector>
-
 using namespace std;
 
 template <typename T>
