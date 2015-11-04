@@ -13,6 +13,10 @@
 #include "random.h"
 using namespace std;
 
+void fillQueueByEdge(int numRows, int numCols, TrailblazerPQueue<Edge> &queue);
+void fillClusterByNodes(int numRows, int numCols, Vector<Set<Loc>> &cluster);
+
+
 /* Function: shortestPath
  * 
  * Finds the shortest path between the locations given by start and end in the
@@ -103,53 +107,78 @@ Vector<Loc> shortestPath(Loc start, Loc end, Grid<double>& world,
 			}
 		}
 	}
-
 	createPath(start, end, path, grid);
 	
 	return path;
 }
 
+
+
 Set<Edge> createMaze(int numRows, int numCols) {
 	Set<Edge> result;
 	Vector<Set<Loc>> cluster;
 	TrailblazerPQueue<Edge> queue;
-	for(int i = 0; i < numRows; i++){
-		for(int j = 0; j < numCols - 1; j++){
-			queue.enqueue(makeEdge(makeLoc(i, j), makeLoc(i, j + 1)), randomReal(0, 1));
-		}
-	}
-	for(int i = 0; i < numCols; i++){
-		for(int j = 0; j < numRows - 1; j++){
-			queue.enqueue(makeEdge(makeLoc(j, i), makeLoc(j + 1, i)), randomReal(0, 1));
-		}
-	}
-
-
-	for(int i = 0; i < numRows; i++){
-		for(int j = 0; j < numCols; j++){
-			Loc newLoc = makeLoc(i,j);
-			Set<Loc> loc;
-			loc.add(newLoc);
-			cluster.add(loc);
-		}
-	}
+	
+	fillQueueByEdge(numRows, numCols, queue);
+	fillClusterByNodes(numRows, numCols, cluster);
 
 	while(!queue.isEmpty()){
-		Edge edge = queue.dequeueMin();
+		Edge currentEdge = queue.dequeueMin();
 		int first, second;
 		for(int i = 0; i < cluster.size(); i++){
-			if(cluster[i].contains(edge.start)) {
+			//find the cluster of the start point of the edge
+			if(cluster[i].contains(currentEdge.start)) {
 				first = i;
 			}
-			if(cluster[i].contains(edge.end)){
+			//find the cluster of the end point of the edge
+			if(cluster[i].contains(currentEdge.end)){
 				second = i;
 			}
 		}
 		if(first != second){
+			//connect two clusters into one connect group
 			cluster[first] += cluster[second];
 			cluster.remove(second);
-			result.add(edge);
+			result.add(currentEdge);
 		}
 	}
     return result;
+}
+
+
+void fillQueueByEdge(int numRows, int numCols, TrailblazerPQueue<Edge> &queue){
+	for(int i = 0; i < numRows; i++){
+		for(int j = 0; j < numCols - 1; j++){
+			//the start of the edge
+			Loc startNode = makeLoc(i, j);
+			//the end of the edge
+			Loc endNode = makeLoc(i, j + 1);
+			//add new edge to the queue with random priority
+			queue.enqueue(makeEdge(startNode, endNode), randomReal(0, 1));
+		}
+	}
+	for(int i = 0; i < numCols; i++){
+		for(int j = 0; j < numRows - 1; j++){
+			//the start of the edge
+			Loc startNode = makeLoc(j, i);
+			//the end of the edge
+			Loc endNode = makeLoc(j + 1, i);
+			//add new edge to the queue with random priority
+			queue.enqueue(makeEdge(startNode, endNode), randomReal(0, 1));
+		}
+	}
+}
+
+
+void fillClusterByNodes(int numRows, int numCols, Vector<Set<Loc>> &cluster){
+	for(int i = 0; i < numRows; i++){
+		for(int j = 0; j < numCols; j++){
+			//find each node
+			Loc currentNode = makeLoc(i,j);
+			Set<Loc> set;
+			//place it into its own cluster
+			set.add(currentNode);
+			cluster.add(set);
+		}
+	}
 }
