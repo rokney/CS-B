@@ -4,7 +4,6 @@
  * Name: aotyan
  * Section: asignment2
  * This file is the project for the word ladder problem
- * on Assignment #2.
  */
 
 #include <iostream>
@@ -15,41 +14,43 @@
 #include "vector.h"
 using namespace std;
 
-
+/* display the shortest word ladder */
 void display(Vector<string> ladder){
-    /* display the shortest word ladder */
     copy(ladder.begin (), ladder.end ()-1, ostream_iterator<string>(cout, " -> "));
     cout << ladder[ladder.size () - 1] << endl;
 }
 
-void readWords(string & fword, string & sword, Lexicon & lexicon){
-    /*Check the entered words with specified parameters. Convert them to lower case */
+
+/*Check the entered words with specified parameters. Convert them to lower case */
+void readWords(string & firstWord, string & secondWord, Lexicon & lexicon){
     string quit = "RETURN";
-    fword = getLine("Enter start word (RETURN to exit): ");
-    if(fword == "" || !lexicon.contains (fword)){
+    firstWord = getLine("Enter start word (RETURN to exit): ");
+    if(firstWord == "" || !lexicon.contains (firstWord)){
         cout << "You entered not valid word. Try again..." << endl;
-    } else if (fword == quit){
+    } else if (firstWord == quit){
         exit(0);
     }
-    fword = toLowerCase (fword);
-    sword = toLowerCase (getLine ("Enter destination word: "));
-    if(sword == "" || !lexicon.contains (sword)){
+    firstWord = toLowerCase (firstWord);
+    secondWord = toLowerCase (getLine ("Enter destination word: "));
+    if(secondWord == "" || !lexicon.contains (secondWord)){
         cout << "You entered not valid word. Try again..." << endl;
-    } else if (sword.length () != fword.length ()){
+    } else if (secondWord.length () != firstWord.length ()){
         cout << "The length of both words must be the same. Try again...";
     }
 }
 
-void createFirstLadder (Queue<Vector<string>> & list, string & fword){
+/*Add the first input word as first ladder in our future list*/
+void createFirstLadder (Queue<Vector<string>> & list, string & firstWord){
     Vector<string> word;
-    word.add(fword);
+    word.add(firstWord);
     list.add(word);
 }
 
+
+/* Change the current word by one letter to create new true word.
+ * Copy last ladder into new, and add new word to it.
+ */
 void createNextLadder(string &currentWord, Vector<string>& firstLadder, Lexicon& usedWords, Queue<Vector<string>>& result, Lexicon& english){
-    /* Change the current word by one letter to create new true word.
-     * Copy last ladder into new, and add new word to it.
-     */
     for(int i = 0; i < currentWord.length (); i++){
         for(char c = 'a'; c <= 'z'; c++){
             if(currentWord[i] != c){

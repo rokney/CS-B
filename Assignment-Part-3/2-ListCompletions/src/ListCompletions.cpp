@@ -45,7 +45,6 @@ int main() {
  * Lists all the words in the lexicon that begin with the letters
  * corresponding to the specified digits on a telephone keypad.
  */
-
 void listCompletions(string digits, Lexicon & lexicon) {
     Vector<string> prefixes;
     createPrefexes(digits, prefixes);
@@ -57,6 +56,7 @@ void listCompletions(string digits, Lexicon & lexicon) {
     }
 }
 
+/*Create prefixes from the input numbers*/
 void createPrefexes(string  digits, Vector<string> & prefixes, string pref){
     if(digits.length () == 0){
         prefixes.add(pref);
@@ -75,21 +75,22 @@ void createPrefexes(string  digits, Vector<string> & prefixes, string pref){
  */
 string digitToPrefixe (char ch){
     switch (ch) {
-    case '0': return ("0");
-    case '1': return ("1");
-    case '2': return ("abc");
-    case '3': return ("def");
-    case '4': return ("ghi");
-    case '5': return ("jkl");
-    case '6': return ("mno");
-    case '7': return ("qprs");
-    case '8': return ("tuv");
-    case '9': return ("wxyz");
-    default: cout << "Wrong digital" << endl;
+        case '0': return ("0");
+        case '1': return ("1");
+        case '2': return ("abc");
+        case '3': return ("def");
+        case '4': return ("ghi");
+        case '5': return ("jkl");
+        case '6': return ("mno");
+        case '7': return ("qprs");
+        case '8': return ("tuv");
+        case '9': return ("wxyz");
+        default: cout << "Wrong digital" << endl;
     }
     return ("0");
 }
 
+/*Find word in the lexicon, which contains prefixe*/
 void createWords(string pref, Lexicon &lexicon){
     if(lexicon.contains (pref)){
         cout << pref << endl;

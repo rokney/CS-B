@@ -63,6 +63,7 @@ string obenglobish(string word){
         char currLetter = word[i];
 
         if(isVowel(currLetter)){
+            /*devide the world by 2 part*/
             string begin = word.substr (0, i);
             string next = word.substr(i + 1);
 

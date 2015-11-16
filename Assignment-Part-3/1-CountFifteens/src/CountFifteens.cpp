@@ -1,11 +1,10 @@
 /*
  * File: CountFifteens.cpp
  * -----------------------
- * Name: [TODO: enter name here]
- * Section: [TODO: enter section leader here]
+ * Name: aotian
+ * Section: csb
  * This file is the starter code for the CountFifteens problem from
  * Assignment #3.
- * [TODO: extend the documentation]
  */
 
 #include <exception>
@@ -20,9 +19,7 @@
 using namespace std;
 
 /* Function prototypes */
-
-int countFifteens(Vector<Card> & cards);
-int calculateNumberOfWays(Vector<Card> & cards, int n);
+int countFifteens(Vector<Card> & cards, int totalWays = 0);
 
 /*
  * Main program
@@ -53,13 +50,7 @@ int main() {
  * Counts the number of ways of making a total of 15 from the vector of
  * cards.
  */
-
-int countFifteens(Vector<Card> & cards) {
-   int totalWays = 0;
-   return calculateNumberOfWays(cards, totalWays);
-}
-
-int calculateNumberOfWays (Vector<Card> &cards, int totalWays){
+int countFifteens (Vector<Card> &cards, int totalWays){
     if(cards.isEmpty () && totalWays != 15){
         return 0;
     }else if(cards.isEmpty () && totalWays == 15){
@@ -70,6 +61,6 @@ int calculateNumberOfWays (Vector<Card> &cards, int totalWays){
         cout<< "total = " << totalWays << endl;
         Vector<Card> cardsCopy = cards;
         cardsCopy.remove (0);
-        return calculateNumberOfWays (cardsCopy, totalWays) + calculateNumberOfWays (cardsCopy, totalWays - cardRank);
+        return countFifteens (cardsCopy, totalWays) + countFifteens (cardsCopy, totalWays - cardRank);
     }
 }

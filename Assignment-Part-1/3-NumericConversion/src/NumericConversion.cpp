@@ -69,6 +69,7 @@ char convertIntToChar(int n){
  * @return The integer with numbers from the entered string
  */
 int stringToInt (string srt){
+    /*the length of the input string*/
     int size = srt.length ();
     if(size == 1){
         return convertCharToInt(srt[0]);

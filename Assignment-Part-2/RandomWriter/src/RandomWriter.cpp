@@ -45,9 +45,8 @@ void createRandomText(string & popularSeed){
         Vector<char> ch;
         if(mapTextChars.containsKey (popularSeed)){
             ch = mapTextChars.get (popularSeed);
-        }else{
-            break;
         }
+
         /*get random character from the vector of next characters */
         char c = getRandomChar(ch);
         result += c;
@@ -55,7 +54,7 @@ void createRandomText(string & popularSeed){
         popularSeed.erase (0,1);
         popularSeed += c;
     }
-    cout<<result<<endl;
+    cout << result << endl;
 }
 
 /*Find the most popular common seed */
@@ -77,9 +76,7 @@ string counterSeed(){
     int count = 0;
     for(int i = 0; i < allSeeds.size (); i++){
         if(mapCounterSeed.containsKey (allSeeds[i])){
-            count = mapCounterSeed.get(allSeeds[i]);
-            count++;
-            mapCounterSeed.add(allSeeds[i], count);
+            mapCounterSeed.add(allSeeds[i], count++);
         }else{
             mapCounterSeed.add(allSeeds[i], 1);
         }
