@@ -2,6 +2,7 @@
  * File:   MyStack.h
  * Author: aotian
  *
+ * Stack implementation with vector
  */
 
 

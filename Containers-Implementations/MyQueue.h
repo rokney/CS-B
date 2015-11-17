@@ -2,6 +2,7 @@
  * File:   MyQueue.h
  * Author: aotian
  *
+ * Queue implementation with vector
  */
 
 #ifndef MYQUEUE_H
