@@ -112,7 +112,7 @@ V& MyHashMap<K, V>::get(const K& key) {
         return n->value;
     } else {
         cout << "Error. No find key" << endl;
-        return 0;
+        exit(0);
     }
 }
 
