@@ -126,7 +126,7 @@ void parseString(string & input, stack<char> & operators, stack<double> & operan
                     cout << "Enter value of " << input[i] << " :";
                     cin >> value;
                     variables.insert(make_pair(input[i], value));
-                    operands.push (val);
+                    operands.push (value);
                 }
             }else if(input[i+1] == '('){
                 strNumber = strNumber + input[i];
