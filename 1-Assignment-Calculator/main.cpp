@@ -1,5 +1,6 @@
 #include <iostream>
-#include <stack>
+//#include <stack>
+#include "my_stack.h"
 #include <string>
 #include <cctype>
 #include <stdlib.h>
@@ -9,7 +10,7 @@
 
 using namespace std;
 
-
+/*Check the input char is operator*/
 bool isOperator (char c){
     return (c == '+' || c == '-' || c == '*' || c == '/' || c == '^');
 }
@@ -28,7 +29,7 @@ int opRank(char c){
 }
 
 /*Calculate the result of the simple operations */
-void calculate(stack<double> & numbers, char op){
+void calculate(MyStack<double> & numbers, char op){
     double res = numbers.top(); // if we have only one number in the scope
     if(numbers.size () > 1){
         double rNum = numbers.top();
@@ -44,8 +45,8 @@ void calculate(stack<double> & numbers, char op){
     numbers.push (res);
 }
 
-/*Calculate the result of the trygonometric function */
-void calculate(stack<double> & numbers, string func){
+/*Calculate the result of the functions */
+void calculate(MyStack<double> & numbers, string func){
     double res;
     double number = numbers.top();
     numbers.pop();
@@ -71,21 +72,23 @@ void calculate(stack<double> & numbers, string func){
     numbers.push (res);
 }
 
-void parseString(string & input, stack<char> & operators, stack<double> & operands){
+void parseString(string & input, MyStack<char> & operators, MyStack<double> & operands){
 
     map<char,double> variables; // used for save variables and their values
-    stack<string> function; // used for trigonometric and others functions
+    MyStack<string> function; // used for trigonometric and others functions
     //string result = ""; // used for display reverse polish notation
     string strNumber = ""; // used for save number bigger then 9
 
     for(unsigned int i = 0; i < input.length (); i++){
         if(input[i] == '-' && ((isdigit (input[i + 1]) && input[i - 1] == '(' ) || (i == 0 && isdigit(input[i+1])) )){
+            /*check the first char in the input string is minus*/
             strNumber = "-1";
             operands.push (atof(strNumber.c_str ()));
             operators.push ('*');
             strNumber.clear ();
             //result = result + "-1" + ' ';
         }else if(isdigit (input[i]) || input[i] == '.'){
+            /*check the first char(chars) is digit*/
             if(i+1 == input.length () || isOperator (input[i + 1]) || input[i + 1] == '(' || input[i + 1] == ')'){
                 //result = result + input[i] + ' ';
                 strNumber = strNumber + input[i];
@@ -96,14 +99,17 @@ void parseString(string & input, stack<char> & operators, stack<double> & operan
                 strNumber = strNumber + input[i];
             }
         }else if(input[i] == '('){
+            /*check the input char is open-scope*/
             operators.push (input[i]);
         }else if(input[i] == ')'){
+            /*check the input char is close-scope*/
             while(operators.top() != '('){
                 //result = result + operators.top() + ' ';
                 calculate(operands, operators.top());
                 operators.pop();
             }
             operators.pop();
+            /*check the function operators in the stack*/
             if(function.size ()>0){
                 calculate(operands, function.top());
                 function.pop();
@@ -116,6 +122,7 @@ void parseString(string & input, stack<char> & operators, stack<double> & operan
             }
             operators.push (input[i]);
         }else if(isalpha (input[i])){
+            /*check the char is letter*/
             if(isOperator (input[i+1]) || input[i+1] == ')'){
                 if(variables.count (input[i])){
                     //result = result + input[i] + ' ';
@@ -140,7 +147,7 @@ void parseString(string & input, stack<char> & operators, stack<double> & operan
 
     /*Check the last operators in the stack */
     if(operators.size () > 0){
-        for(unsigned int i = 0; i < operators.size ()-1; i++){
+        for(int i = 0; i < operators.size ()-1; i++){
             //result = result + operators.top() + ' ';
             calculate(operands, operators.top());
             operators.pop();
@@ -151,20 +158,22 @@ void parseString(string & input, stack<char> & operators, stack<double> & operan
     }
 
     //cout << result << endl;
-    cout << operands.top() << endl;
+    cout << "Result: " <<operands.top() << endl;
 
     operands.pop(); // delete last operands
 }
 
 int main()
 {
-    stack<char> operators;
-    stack<double> numbers;
-    string input;
+    MyStack<char> operators;    // container for operators
+    MyStack<double> numbers;    // container for operands
+    string input;               // input data
     while(true){
         cout << "Enter simple formula: ";
         getline(cin, input);
-        if(input.empty ()) break;
+        if(input.empty ()) {
+            break;
+        }
         parseString(input, operators, numbers);
     }
     return 0;

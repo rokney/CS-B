@@ -29,8 +29,11 @@ void drawTriangle (GWindow & gw, GPoint pt, double size, int order){
     gw.drawLine (ptRight, pt);
 
     if(order != 0){
+        //Create the left point of the triangle
         GPoint ptLeft(ptX - height / 4, ptY + height/2);
+        //Create the right point of the triangle
         GPoint ptRight(ptX + height / 4, ptY + height/2);
+        //draw triangle from three points
         drawTriangle (gw, pt, size / 2, order - 1);
         drawTriangle (gw, ptLeft, size / 2, order - 1);
         drawTriangle (gw, ptRight, size / 2, order - 1);
