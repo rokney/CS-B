@@ -1,6 +1,6 @@
 /* 
  * File:   my_queue.h
- * Author: rokne
+ * Author: aotyan
  *
  * FIFO queue implementation with singly linked list
  */
