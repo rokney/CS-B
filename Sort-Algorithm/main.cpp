@@ -46,14 +46,13 @@ void quickSort(vector<int> &array, int begin, int end) {
 /*Sort the vector with the selection sort algorithm*/
 void selectionSort(vector<int> &array) {
     for (int i = 0; i < array.size() - 1; i++) {
-        int min = array[i];
+        int min = i;
         for (int j = i + 1; j < array.size(); j++) {
-            if (array[j] < min) {
-                min = array[j];
-                swap(array[i], array[j]);
+            if (array[j] < array[min]) {
+                min = j;
             }
-
         }
+        swap(array[i], array[min]);
     }
 }
 
@@ -69,8 +68,8 @@ void insertionSort(vector<int> &array) {
 /*Merge the two halves of the vector in one*/
 void merge(vector<int> &array, int left, int split, int right) {
     int leftPos = left; //start position in the left-half vector
-    int rightPos = split + 1;  //statrt position in the right-half vector
-    vector<int> temp;  //temporary vector
+    int rightPos = split + 1; //statrt position in the right-half vector
+    vector<int> temp; //temporary vector
     /*Compare the elements of the left- and right-halves of the vectors*/
     while (leftPos <= split && rightPos <= right) {
         if (array[leftPos] < array[rightPos]) {
