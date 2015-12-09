@@ -124,7 +124,7 @@ void parseString(string & input, MyStack<char> & operators, MyStack<double> & op
         }else if(isalpha (input[i])){
             /*check the char is letter*/
             if(isOperator (input[i+1]) || input[i+1] == ')'){
-                if(variables.count (input[i])){
+                if(variables.find (input[i]) != variables.end ()){
                     //result = result + input[i] + ' ';
                     operands.push(variables.find (input[i])->second);
                 }else{
