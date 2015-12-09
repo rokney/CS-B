@@ -33,13 +33,13 @@ void quickSort(vector<int> &array, int begin, int end) {
         if (left <= right) {
             swap(array[left++], array[right--]);
         }
-        /*Sort both parts of the vectors while the size of the sort-part bigger 1*/
-        if (begin < right) {
-            quickSort(array, begin, right);
-        }
-        if (end > left) {
-            quickSort(array, left, end);
-        }
+    }
+    /*Sort both parts of the vectors while the size of the sort-part bigger 1*/
+    if (begin < right) {
+        quickSort(array, begin, right);
+    }
+    if (end > left) {
+        quickSort(array, left, end);
     }
 }
 
