@@ -16,6 +16,7 @@
                    displayName="Файлы заголовков"
                    projectFiles="true">
       <itemPath>compareNode.h</itemPath>
+      <itemPath>my_vector.h</itemPath>
       <itemPath>node.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -54,6 +55,8 @@
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="my_vector.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="node.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="node.h" ex="false" tool="3" flavor2="0">
@@ -88,6 +91,8 @@
       <item path="compareNode.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="my_vector.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="node.cpp" ex="false" tool="1" flavor2="0">
       </item>

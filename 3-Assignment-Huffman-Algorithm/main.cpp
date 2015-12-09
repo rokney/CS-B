@@ -10,6 +10,7 @@
 #include <map>
 #include <iterator>
 #include <vector>
+#include "my_vector.h"
 #include "node.h"
 #include "compareNode.h"
 #include <queue>
@@ -51,7 +52,7 @@ map<char, double> getFrequencyTable() {
     return result;
 }
 
-void fillQueueAndTreeByNodes(map<char, double> &frequencies, vector<Node> &tree,
+void fillQueueAndTreeByNodes(map<char, double> &frequencies, MyVector<Node> &tree,
         priority_queue<Node, vector<Node>, CompareNode> &q) {
 
     for (map<char, double>::iterator it = frequencies.begin();
@@ -64,7 +65,7 @@ void fillQueueAndTreeByNodes(map<char, double> &frequencies, vector<Node> &tree,
 }
 
 void buildHuffmanTree(priority_queue<Node, vector<Node>, CompareNode> &q,
-        vector<Node> &tree) {
+        MyVector<Node> &tree) {
 
     while (q.size() > 1) {
         //get first element of the tree with the smallest weight
@@ -89,7 +90,7 @@ void buildHuffmanTree(priority_queue<Node, vector<Node>, CompareNode> &q,
     }
 }
 
-vector<bool> convertChar(vector<Node> &tree) {
+vector<bool> convertChar(MyVector<Node> &tree) {
     vector<bool> result;
     ifstream file(fileName.c_str());
     while (!file.eof()) {
@@ -115,7 +116,7 @@ vector<bool> convertChar(vector<Node> &tree) {
     return result;
 }
 
-void saveEncodeFile(vector<bool> &encode, vector<Node> &tree) {
+void saveEncodeFile(vector<bool> &encode, MyVector<Node> &tree) {
     cout << "Enter the file name to save compressed file: ";
     getline(cin, fileName);
     ofstream file(fileName.c_str(), ios::binary);
@@ -143,7 +144,7 @@ void saveEncodeFile(vector<bool> &encode, vector<Node> &tree) {
     cout << "Compression completed successfully." << endl;
 }
 
-void encodeFile(vector<Node> &tree) {
+void encodeFile(MyVector<Node> &tree) {
     vector<bool> encode = convertChar(tree);
 
     /*
@@ -164,15 +165,15 @@ void encodeFile(vector<Node> &tree) {
 
 void compressFile(void) {
     map<char, double> frequencies = getFrequencyTable();
-    vector<Node> tree;
+    MyVector<Node> tree;
     priority_queue<Node, vector<Node>, CompareNode> q;
     fillQueueAndTreeByNodes(frequencies, tree, q);
     buildHuffmanTree(q, tree);
     encodeFile(tree);
 }
 
-void readTreeAndEncodeDataFromFile(string &fileName, vector<Node> &tree,
-        vector<bool> &decode) {
+void readTreeAndEncodeDataFromFile(string &fileName, MyVector<Node> &tree,
+       MyVector<bool> &decode) {
 
     ifstream fin(fileName.c_str(), ios::binary);
 
@@ -217,7 +218,7 @@ void readTreeAndEncodeDataFromFile(string &fileName, vector<Node> &tree,
     fin.close();
 }
 
-void decodeFileAndDisplay(vector<Node> &tree, vector<bool> &decode) {
+void decodeFileAndDisplay(MyVector<Node> &tree, MyVector<bool> &decode) {
     int indexRoot = tree.size() - 1; //the index of the root of our Huffman tree
     Node currentNode = tree[indexRoot]; //start decode from the root of the tree
     for (int i = 0; i < decode.size(); i++) {
@@ -244,8 +245,8 @@ void decompressFile(void) {
     cout << "Enter file name for decompress: ";
     getline(cin, fileName);
 
-    vector<Node> tree;
-    vector<bool> decode;
+    MyVector<Node> tree;
+    MyVector<bool> decode;
 
     readTreeAndEncodeDataFromFile(fileName, tree, decode);
 
