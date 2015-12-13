@@ -279,7 +279,7 @@ void saveEncodeData(vector<Node> huffmanTree, vector<bool> code,
                 ch |= (1 << j);
             }
         }
-        file.write((char*) &ch, sizeof (ch));
+        file.write(&ch, sizeof (ch));
     }
     file.close();
 }
@@ -305,7 +305,7 @@ void readHuffmanTreeAndEncodeDataFromInputFile(vector<Node> &huffmanTree,
         int count = 0;
         while (!file.eof()) {
             char ch;
-            file.read((char*) &ch, sizeof (ch));
+            file.read(&ch, sizeof (ch));
             if (file.eof()) {
                 break;
             }
